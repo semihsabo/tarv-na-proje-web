@@ -1,17 +1,14 @@
-import Sidebar from './Sidebar';
-import Navbar from './Navbar';
-import Dashboard from './Dashboard';
+// pages/admin/index.js
+import React from 'react';
+import Dashboard from './Dashboard'; // ✅ düzeltildi
+import Layout from '../../components/layout/Layout';
 
-const Admin = () => {
+const AdminPage = () => {
   return (
-    <div className="flex">
-      <Sidebar />
-      <div className="flex-1 bg-gray-100 p-8">
-        <Navbar />
-        <Dashboard />
-      </div>
-    </div>
+    <Layout showNavbar={false} showFooter={false}>
+      <Dashboard />
+    </Layout>
   );
 };
 
-export default Admin;     
+export default AdminPage;

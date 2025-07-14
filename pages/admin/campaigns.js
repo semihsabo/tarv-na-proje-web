@@ -1,85 +1,195 @@
-import React from 'react';
+import { useState } from "react";
+import { useRouter } from "next/router";
+import {
+  FaSearch,
+  FaPlus,
+  FaEye,
+  FaChartBar,
+  FaDownload,
+  FaSyncAlt,
+} from "react-icons/fa";
+import Sidebar from "./Sidebar";
 
 const campaigns = [
   {
-    id: 1,
-    name: 'Kampanya 1',
-    platform: 'Meta',
-    budget: '$3,000',
-    spent: '$1,500',
-    roas: '3.5x',
-    conversions: '150',
-    startDate: '01 Haz 2025',
-    endDate: '01 Tem 2025',
-    status: 'Aktif',
+    id: 1, platform: "Facebook", name: "Holiday Special", budget: 3000, budgetType: "Lifetime", spend: 0, roas: "0.0x", purchases: 0, atc: 0, clicks: 0, startDate: "25.06.2024", endDate: "25.07.2024", performance: "Low",
   },
   {
-    id: 2,
-    name: 'Kampanya 2',
-    platform: 'Google',
-    budget: '$5,000',
-    spent: '$2,800',
-    roas: '2.0x',
-    conversions: '120',
-    startDate: '15 May 2025',
-    endDate: '15 Haz 2025',
-    status: 'Beklemede',
+    id: 2, platform: "Google", name: "Retargeting Campaign", budget: 90, budgetType: "Daily", spend: 945, roas: "7.2x", purchases: 78, atc: 145, clicks: 567, startDate: "10.06.2024", endDate: "10.07.2024", performance: "High",
   },
   {
-    id: 3,
-    name: 'Kampanya 3',
-    platform: 'TikTok',
-    budget: '$1,800',
-    spent: '$900',
-    roas: '1.8x',
-    conversions: '80',
-    startDate: '01 May 2025',
-    endDate: '01 Haz 2025',
-    status: 'Durduruldu',
+    id: 3, platform: "TikTok", name: "Back to School", budget: 120, budgetType: "Daily", spend: 1650, roas: "5.1x", purchases: 145, atc: 289, clicks: 1600, startDate: "05.06.2024", endDate: "05.07.2024", performance: "High",
+  },
+  {
+    id: 4, platform: "Facebook", name: "Influencer Collab", budget: 200, budgetType: "Daily", spend: 2100, roas: "3.2x", purchases: 98, atc: 234, clicks: 1400, startDate: "01.06.2024", endDate: "20.06.2024", performance: "Medium",
+  },
+  {
+    id: 5, platform: "Google", name: "Summer Sale 2024", budget: 150, budgetType: "Daily", spend: 1847, roas: "4.2x", purchases: 186, atc: 342, clicks: 1200, startDate: "01.06.2024", endDate: "30.06.2024", performance: "High",
+  },
+  {
+    id: 6, platform: "TikTok", name: "Launch Campaign", budget: 5000, budgetType: "Lifetime", spend: 3200, roas: "3.8x", purchases: 312, atc: 567, clicks: 1900, startDate: "28.05.2024", endDate: "15.07.2024", performance: "High",
+  },
+  {
+    id: 7, platform: "Facebook", name: "Flash Sale", budget: 70, budgetType: "Daily", spend: 580, roas: "2.6x", purchases: 45, atc: 110, clicks: 400, startDate: "01.07.2024", endDate: "10.07.2024", performance: "Medium",
+  },
+  {
+    id: 8, platform: "Google", name: "Brand Awareness", budget: 800, budgetType: "Lifetime", spend: 600, roas: "1.9x", purchases: 22, atc: 70, clicks: 220, startDate: "15.06.2024", endDate: "30.07.2024", performance: "Low",
   },
 ];
 
-const Campaigns = () => {
+export default function Campaigns() {
+  const [search, setSearch] = useState("");
+  const router = useRouter();
+
+  const handleCreateCampaign = () => {
+    router.push("/admin/create-ad");
+  };
+
   return (
-    <div className="p-6 bg-gray-100">
-      <h1 className="text-3xl font-semibold mb-4">Kampanyalar</h1>
-      
-      {/* Kampanyalar Tablosu */}
-      <div className="bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-semibold mb-4">Aktif Kampanyalar</h2>
-        <table className="w-full table-auto border-collapse">
-          <thead>
-            <tr className="border-b">
-              <th className="p-2 text-left">Kampanya Adı</th>
-              <th className="p-2 text-left">Platform</th>
-              <th className="p-2 text-left">Bütçe</th>
-              <th className="p-2 text-left">Harcanan</th>
-              <th className="p-2 text-left">ROAS</th>
-              <th className="p-2 text-left">Dönüşümler</th>
-              <th className="p-2 text-left">Başlangıç</th>
-              <th className="p-2 text-left">Bitiş</th>
-              <th className="p-2 text-left">Durum</th>
+    <main className="flex min-h-screen">
+      <Sidebar/>
+      <div className="flex-1 p-6">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-4">
+        <h1 className="text-3xl font-bold text-gray-900">Campaign Management</h1>
+        <div className="flex items-center gap-3">
+          <button className="p-2 text-gray-600 hover:text-black">
+            <FaDownload />
+          </button>
+          <button className="p-2 text-gray-600 hover:text-black">
+            <FaSyncAlt />
+          </button>
+          <button
+            onClick={handleCreateCampaign}
+            className="flex items-center bg-black text-white px-4 py-2 rounded-lg text-sm hover:opacity-90"
+          >
+            <FaPlus className="mr-2" />
+            Create Campaign
+          </button>
+        </div>
+      </div>
+
+      {/* KPI Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <KPI title="Total Conversions" value="975" subtitle="+8.2% from last month" icon={<FaEye />} />
+        <KPI title="Average ROAS" value="4.0x" subtitle="-2.1% from last month" icon={<FaChartBar />} />
+        <KPI title="Active Campaigns" value="5" subtitle="of 8 total campaigns" icon={<FaEye />} />
+      </div>
+
+      {/* Filters */}
+      <div className="bg-white p-4 rounded-lg shadow mb-4 flex flex-wrap gap-4 items-center justify-between">
+        <div className="flex items-center gap-2 w-full sm:w-auto flex-1">
+          <FaSearch className="text-gray-400" />
+          <input
+            type="text"
+            placeholder="Search campaigns or IDs..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full outline-none text-sm"
+          />
+        </div>
+
+        <input type="date" className="border rounded px-2 py-1 text-sm" />
+        <input type="date" className="border rounded px-2 py-1 text-sm" />
+
+        <div className="flex gap-2">
+          <button className="px-3 py-1 rounded-full bg-purple-600 text-white text-xs">All</button>
+          <button className="px-3 py-1 rounded-full bg-gray-100 text-gray-800 text-xs">Meta</button>
+          <button className="px-3 py-1 rounded-full bg-gray-100 text-gray-800 text-xs">Google</button>
+          <button className="px-3 py-1 rounded-full bg-gray-100 text-gray-800 text-xs">TikTok</button>
+        </div>
+
+        <select className="text-sm border px-2 py-1 rounded">
+          <option>All Status</option>
+          <option>Active</option>
+          <option>Paused</option>
+        </select>
+
+        <button className="text-sm text-gray-600 hover:text-black">
+          Show Advanced Filters
+        </button>
+      </div>
+
+      {/* Table */}
+      <div className="overflow-x-auto bg-white rounded-xl shadow px-8 py-6 mb-20">
+        <table className="min-w-full text-sm text-left">
+          <thead className="bg-gray-100 text-gray-600 font-semibold">
+            <tr>
+              <th className="px-4 py-4">Platform</th>
+              <th className="px-4 py-4">Campaign Name</th>
+              <th className="px-4 py-4">Budget</th>
+              <th className="px-4 py-4">Total Spend</th>
+              <th className="px-4 py-4">ROAS</th>
+              <th className="px-4 py-4">Conversions</th>
+              <th className="px-4 py-4">Dates</th>
+              <th className="px-4 py-4">Performance</th>
+              <th className="px-4 py-4">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {campaigns.map((campaign) => (
-              <tr key={campaign.id} className="border-b">
-                <td className="p-2">{campaign.name}</td>
-                <td className="p-2">{campaign.platform}</td>
-                <td className="p-2">{campaign.budget}</td>
-                <td className="p-2">{campaign.spent}</td>
-                <td className="p-2">{campaign.roas}</td>
-                <td className="p-2">{campaign.conversions}</td>
-                <td className="p-2">{campaign.startDate}</td>
-                <td className="p-2">{campaign.endDate}</td>
-                <td className="p-2 text-green-500">{campaign.status}</td>
+            {campaigns.map((c) => (
+              <tr
+                key={c.id}
+                className="border-b hover:bg-gray-50 text-sm text-gray-800 leading-relaxed"
+              >
+                <td className="px-6 py-5 align-top">
+                  <img
+                    src={`/icons/${c.platform.toLowerCase()}.png`}
+                    alt={c.platform}
+                    className="w-5 h-5 object-contain"
+                  />
+                </td>
+                <td className="px-6 py-5 align-top space-y-1">
+                  <p className="font-medium">{c.name}</p>
+                  <span className="text-xs text-gray-400">ID: {c.id}</span>
+                </td>
+                <td className="px-6 py-5 align-top">
+                  ₺{c.budget} <span className="text-xs text-gray-500">/ {c.budgetType}</span>
+                </td>
+                <td className="px-6 py-5 align-top">₺{c.spend}</td>
+                <td className="px-6 py-5 align-top">
+                  <div className="flex items-center gap-2">
+                    <span>{c.roas}</span>
+                    <img src="/icons/sparkline-purple.png" className="h-4 object-contain" />
+                  </div>
+                </td>
+                <td className="px-6 py-5 align-top space-y-1 text-xs text-gray-600">
+                  <p className="text-green-600 font-medium">🛒 {c.purchases} purchases</p>
+                  <p>🧺 {c.atc} ATC</p>
+                  <p>📈 {c.clicks} clicks</p>
+                </td>
+                <td className="px-6 py-5 align-top text-xs">
+                  <p>Start: {c.startDate}</p>
+                  <p>End: {c.endDate}</p>
+                </td>
+                <td className="px-6 py-5 align-top">
+                  <span className={`px-3 py-1 rounded-full text-xs font-semibold
+                    ${c.performance === 'High' ? 'bg-green-100 text-green-700' :
+                      c.performance === 'Medium' ? 'bg-yellow-100 text-yellow-700' :
+                      'bg-red-100 text-red-600'}`}>{c.performance}</span>
+                </td>
+                <td className="px-6 py-5 align-top">
+                  <button className="text-gray-500 hover:text-gray-700">...</button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+      </div>
+    </main>
+  );
+}
+
+function KPI({ title, value, subtitle, icon }) {
+  return (
+    <div className="bg-white rounded-xl shadow p-4 flex items-center gap-4">
+      <div className="text-purple-600 text-lg">{icon}</div>
+      <div>
+        <h2 className="text-sm text-gray-500">{title}</h2>
+        <p className="text-2xl font-bold text-gray-800 mt-1">{value}</p>
+        <p className="text-xs text-gray-400 mt-1">{subtitle}</p>
+      </div>
     </div>
   );
-};
-
-export default Campaigns;
+}
