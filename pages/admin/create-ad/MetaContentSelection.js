@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import Sidebar from "../Sidebar";
 
 export default function MetaContentSelection() {
   const router = useRouter();
@@ -75,75 +76,80 @@ export default function MetaContentSelection() {
   };
 
   return (
-    <div className="p-8 bg-[#f5f6fa] min-h-screen">
-      <h2 className="text-2xl font-bold text-[#4064AC] mb-1 flex items-center gap-2">
-        <img src="/icons/facebook.png" className="w-6 h-6" alt="Meta icon" />
-        Meta
-      </h2>
-      <p className="text-gray-500 mb-6">Select a post from your Facebook or Instagram to promote</p>
+    <div className="flex min-h-screen">
+      <Sidebar />
+      <div className="flex-1 p-8 bg-[#f5f6fa]">
+        <h2 className="text-2xl font-bold text-[#4064AC] mb-1 flex items-center gap-2">
+          <img src="/icons/facebook.png" className="w-6 h-6" alt="Meta icon" />
+          Meta
+        </h2>
+        <p className="text-gray-500 mb-6">
+          Select a post from your Facebook or Instagram to promote
+        </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {posts.map((post) => {
-          const isSelected = selectedPostId === post.id;
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {posts.map((post) => {
+            const isSelected = selectedPostId === post.id;
 
-          return (
-            <div
-              key={post.id}
-              onClick={() => handleSelect(post.id)}
-              className={`cursor-pointer rounded-xl overflow-hidden shadow-md transition-all border
-                ${isSelected ? 'border-purple-500 bg-purple-100' : 'border-transparent bg-white'}
-                hover:shadow-xl`}
-            >
-              <div className={`p-4 ${post.color} relative`}>
-                <div className="flex justify-between items-start text-sm">
-                  <span className="flex items-center gap-1 text-xs text-gray-700 font-medium">
-                    <img src={post.icon} alt={`${post.type} icon`} className="w-4 h-4" />
-                    {post.type}
-                  </span>
-                  <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${badgeColor[post.performance]}`}>
-                    {post.performance}
-                  </span>
-                </div>
-                <div className="h-36 flex items-center justify-center text-gray-300 mt-4 mb-2">
-                  <span className="text-sm">[Image Placeholder]</span>
-                </div>
-                {isSelected && (
-                  <div className="absolute bottom-2 right-2 w-7 h-7 bg-purple-600 rounded-full flex items-center justify-center text-white">
-                    ✓
+            return (
+              <div
+                key={post.id}
+                onClick={() => handleSelect(post.id)}
+                className={`cursor-pointer rounded-xl overflow-hidden shadow-md transition-all border
+                  ${isSelected ? 'border-purple-500 bg-purple-100' : 'border-transparent bg-white'}
+                  hover:shadow-xl`}
+              >
+                <div className={`p-4 ${post.color} relative`}>
+                  <div className="flex justify-between items-start text-sm">
+                    <span className="flex items-center gap-1 text-xs text-gray-700 font-medium">
+                      <img src={post.icon} alt={`${post.type} icon`} className="w-4 h-4" />
+                      {post.type}
+                    </span>
+                    <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${badgeColor[post.performance]}`}>
+                      {post.performance}
+                    </span>
                   </div>
-                )}
-              </div>
-
-              <div className="px-4 pb-4">
-                <div className="text-sm text-gray-800 font-medium line-clamp-2">{post.title}</div>
-                <div className="text-xs text-gray-500 mt-1 flex flex-wrap gap-3">
-                  <span>❤️ {post.stats.likes}</span>
-                  <span>💬 {post.stats.comments}</span>
-                  <span>🔁 {post.stats.shares}</span>
-                  <span>👀 {post.stats.views}</span>
+                  <div className="h-36 flex items-center justify-center text-gray-300 mt-4 mb-2">
+                    <span className="text-sm">[Image Placeholder]</span>
+                  </div>
+                  {isSelected && (
+                    <div className="absolute bottom-2 right-2 w-7 h-7 bg-purple-600 rounded-full flex items-center justify-center text-white">
+                      ✓
+                    </div>
+                  )}
                 </div>
-                <div className="text-xs text-gray-400 mt-1">{post.date}</div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
 
-      <div className="mt-8 flex justify-between">
-        <button
-          onClick={() => window.history.back()}
-          className="border border-gray-300 rounded px-4 py-2 hover:bg-gray-100"
-        >
-          Back to Platform Selection
-        </button>
-        <button
-          disabled={!selectedPostId}
-          className={`rounded px-6 py-2 text-white font-semibold
-            ${selectedPostId ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-300 cursor-not-allowed'}`}
-          onClick={handleContinue}
-        >
-          Continue to Budget
-        </button>
+                <div className="px-4 pb-4">
+                  <div className="text-sm text-gray-800 font-medium line-clamp-2">{post.title}</div>
+                  <div className="text-xs text-gray-500 mt-1 flex flex-wrap gap-3">
+                    <span>❤️ {post.stats.likes}</span>
+                    <span>💬 {post.stats.comments}</span>
+                    <span>🔁 {post.stats.shares}</span>
+                    <span>👀 {post.stats.views}</span>
+                  </div>
+                  <div className="text-xs text-gray-400 mt-1">{post.date}</div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="mt-8 flex justify-between">
+          <button
+            onClick={() => window.history.back()}
+            className="border border-gray-300 rounded px-4 py-2 hover:bg-gray-100"
+          >
+            Back to Platform Selection
+          </button>
+          <button
+            disabled={!selectedPostId}
+            className={`rounded px-6 py-2 text-white font-semibold
+              ${selectedPostId ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-300 cursor-not-allowed'}`}
+            onClick={handleContinue}
+          >
+            Continue to Budget
+          </button>
+        </div>
       </div>
     </div>
   );
