@@ -9,18 +9,24 @@ import {
   FaCalendarAlt,
   FaPlug,
   FaChevronLeft,
-  FaChevronRight
+  FaChevronRight,
+  FaBullseye,
+  FaChevronDown,
+  FaChevronUp
 } from 'react-icons/fa';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const [manualOpen, setManualOpen] = useState(false); // manual ads toggle
   const router = useRouter();
+
+  const isActive = (path) => router.pathname.startsWith(path);
 
   return (
     <div
-      className={`$${
+      className={`${
         isOpen ? 'w-64' : 'w-20'
       } bg-white text-black h-screen p-4 flex flex-col border-r border-gray-200 transition-all duration-300 relative`}
     >
@@ -37,90 +43,113 @@ const Sidebar = () => {
         )}
       </div>
 
-      {/* Üst + Create Campaign */}
-        {isOpen && (
-            <div className="mb-4">
-              <Link href="/admin/create-ad">
-              <div className="bg-black text-white px-3 py-1.5 rounded-md text-xs hover:bg-gray-800 transition-colors duration-300 inline-block cursor-pointer">
-                  + Create Campaign
-                      </div>
-                </Link>
-                </div>
-          )}
+      {/* Create Campaign Button */}
+      {isOpen && (
+        <div className="mb-4">
+          <Link href="/admin/create-ad">
+            <div className="bg-black text-white px-3 py-1.5 rounded-md text-xs hover:bg-gray-800 transition-colors duration-300 inline-block cursor-pointer">
+              + Create Campaign
+            </div>
+          </Link>
+        </div>
+      )}
 
-
-      {/* Main Menu Label */}
       {isOpen && <p className="text-xs text-gray-500 mb-3">Main Menu</p>}
 
       {/* Menu Items */}
       <ul className="flex flex-col space-y-1">
         <li>
-          <Link href="/admin" replace={router.pathname === "/admin"}>
-            <div className="flex items-center text-gray-700 hover:bg-gray-100 p-2 rounded-md transition-colors cursor-pointer text-sm">
+          <Link href="/admin">
+            <div className={`flex items-center text-gray-700 hover:bg-gray-100 p-2 rounded-md transition-colors cursor-pointer text-sm ${isActive("/admin") ? "bg-gray-100 font-semibold" : ""}`}>
               <FaClipboardList className="text-base" />
               {isOpen && <span className="ml-3">Dashboard</span>}
             </div>
           </Link>
         </li>
         <li>
-          <Link href="/admin/campaigns" replace={router.pathname === "/admin/campaigns"}>
-            <div className="flex items-center text-gray-700 hover:bg-gray-100 p-2 rounded-md transition-colors cursor-pointer text-sm">
+          <Link href="/admin/campaigns">
+            <div className={`flex items-center text-gray-700 hover:bg-gray-100 p-2 rounded-md transition-colors cursor-pointer text-sm ${isActive("/admin/campaigns") ? "bg-gray-100 font-semibold" : ""}`}>
               <FaClipboardList className="text-base" />
               {isOpen && <span className="ml-3">Campaigns</span>}
             </div>
           </Link>
         </li>
         <li>
-          <Link href="/admin/create-ad" replace={router.pathname === "/admin/create-ad"}>
-            <div className="flex items-center text-gray-700 hover:bg-gray-100 p-2 rounded-md transition-colors cursor-pointer text-sm">
+          <Link href="/admin/create-ad">
+            <div className={`flex items-center text-gray-700 hover:bg-gray-100 p-2 rounded-md transition-colors cursor-pointer text-sm ${isActive("/admin/create-ad") ? "bg-gray-100 font-semibold" : ""}`}>
               <FaAd className="text-base" />
               {isOpen && <span className="ml-3">Create Ad</span>}
             </div>
           </Link>
         </li>
+
+        {/* Manual Ads Alt Menü */}
         <li>
-          <Link href="/admin/manual-ads" replace={router.pathname === "/admin/manual-ads"}>
-            <div className="flex items-center text-gray-700 hover:bg-gray-100 p-2 rounded-md transition-colors cursor-pointer text-sm">
-              <FaClipboardList className="text-base" />
+          <button
+            onClick={() => setManualOpen(!manualOpen)}
+            className="w-full flex items-center justify-between text-gray-700 hover:bg-gray-100 p-2 rounded-md transition-colors cursor-pointer text-sm"
+          >
+            <div className="flex items-center">
+              <FaCog className="text-base" />
               {isOpen && <span className="ml-3">Manual Ads</span>}
             </div>
-          </Link>
+            {isOpen && (manualOpen ? <FaChevronUp size={12} /> : <FaChevronDown size={12} />)}
+          </button>
+
+          {/* Alt Menüler */}
+          {manualOpen && isOpen && (
+            <div className="pl-6 mt-1 space-y-1">
+              <Link href="/admin/manual-ads/meta">
+                <div className={`flex items-center text-sm text-gray-700 hover:underline cursor-pointer ${isActive("/admin/manual-ads/meta") ? "font-semibold" : ""}`}>
+                  <FaBullseye className="mr-2" />
+                  Meta Ads
+                </div>
+              </Link>
+              <Link href="/admin/manual-ads/google">
+                <div className={`flex items-center text-sm text-gray-700 hover:underline cursor-pointer ${isActive("/admin/manual-ads/google") ? "font-semibold" : ""}`}>
+                  <FaBullseye className="mr-2" />
+                  Google Ads
+                </div>
+              </Link>
+            </div>
+          )}
         </li>
+
         <li>
-          <Link href="/admin/calendar" replace={router.pathname === "/admin/calendar"}>
-            <div className="flex items-center text-gray-700 hover:bg-gray-100 p-2 rounded-md transition-colors cursor-pointer text-sm">
+          <Link href="/admin/calendar">
+            <div className={`flex items-center text-gray-700 hover:bg-gray-100 p-2 rounded-md transition-colors cursor-pointer text-sm ${isActive("/admin/calendar") ? "bg-gray-100 font-semibold" : ""}`}>
               <FaCalendarAlt className="text-base" />
               {isOpen && <span className="ml-3">Calendar</span>}
             </div>
           </Link>
         </li>
         <li>
-          <Link href="/admin/analytics" replace={router.pathname === "/admin/analytics"}>
-            <div className="flex items-center text-gray-700 hover:bg-gray-100 p-2 rounded-md transition-colors cursor-pointer text-sm">
+          <Link href="/admin/analytics">
+            <div className={`flex items-center text-gray-700 hover:bg-gray-100 p-2 rounded-md transition-colors cursor-pointer text-sm ${isActive("/admin/analytics") ? "bg-gray-100 font-semibold" : ""}`}>
               <FaChartLine className="text-base" />
               {isOpen && <span className="ml-3">Analytics</span>}
             </div>
           </Link>
         </li>
         <li>
-          <Link href="/admin/integrations" replace={router.pathname === "/admin/integrations"}>
-            <div className="flex items-center text-gray-700 hover:bg-gray-100 p-2 rounded-md transition-colors cursor-pointer text-sm">
+          <Link href="/admin/integrations">
+            <div className={`flex items-center text-gray-700 hover:bg-gray-100 p-2 rounded-md transition-colors cursor-pointer text-sm ${isActive("/admin/integrations") ? "bg-gray-100 font-semibold" : ""}`}>
               <FaPlug className="text-base" />
               {isOpen && <span className="ml-3">Integrations</span>}
             </div>
           </Link>
         </li>
         <li>
-          <Link href="/admin/billing" replace={router.pathname === "/admin/billing"}>
-            <div className="flex items-center text-gray-700 hover:bg-gray-100 p-2 rounded-md transition-colors cursor-pointer text-sm">
+          <Link href="/admin/billing">
+            <div className={`flex items-center text-gray-700 hover:bg-gray-100 p-2 rounded-md transition-colors cursor-pointer text-sm ${isActive("/admin/billing") ? "bg-gray-100 font-semibold" : ""}`}>
               <FaDollarSign className="text-base" />
               {isOpen && <span className="ml-3">Billing</span>}
             </div>
           </Link>
         </li>
         <li>
-          <Link href="/admin/settings" replace={router.pathname === "/admin/settings"}>
-            <div className="flex items-center text-gray-700 hover:bg-gray-100 p-2 rounded-md transition-colors cursor-pointer text-sm">
+          <Link href="/admin/settings">
+            <div className={`flex items-center text-gray-700 hover:bg-gray-100 p-2 rounded-md transition-colors cursor-pointer text-sm ${isActive("/admin/settings") ? "bg-gray-100 font-semibold" : ""}`}>
               <FaCog className="text-base" />
               {isOpen && <span className="ml-3">Settings</span>}
             </div>
@@ -128,7 +157,7 @@ const Sidebar = () => {
         </li>
       </ul>
 
-      {/* Kullanıcı Bilgisi & Logout */}
+      {/* Kullanıcı & Logout */}
       <div className="mt-auto flex flex-col">
         {isOpen && (
           <div className="border-t border-gray-200 pt-3">
