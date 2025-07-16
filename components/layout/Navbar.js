@@ -57,14 +57,31 @@ export default function Navbar() {
       {open && (
         <div className="md:hidden bg-white shadow-lg">
           <ul className="flex flex-col divide-y divide-gray-200">
-            <li><Link href="/features" className="block px-6 py-4 text-gray-700">Features</Link></li>
-            <li><Link href="/pricing" className="block px-6 py-4 text-gray-700">Pricing</Link></li>
-            <li><Link href="/blog" className="block px-6 py-4 text-gray-700">Blog</Link></li>
-            <li><Link href="/login" className="block px-6 py-4 text-gray-700">Login</Link></li>
+            <li>
+              <Link href="/features" className="block px-6 py-4 text-gray-700" onClick={() => setOpen(false)}>
+                Features
+              </Link>
+            </li>
+            <li>
+              <Link href="/pricing" className="block px-6 py-4 text-gray-700" onClick={() => setOpen(false)}>
+                Pricing
+              </Link>
+            </li>
+            <li>
+              <Link href="/blog" className="block px-6 py-4 text-gray-700" onClick={() => setOpen(false)}>
+                Blog
+              </Link>
+            </li>
+            <li>
+              <Link href="/login" className="block px-6 py-4 text-gray-700" onClick={() => setOpen(false)}>
+                Login
+              </Link>
+            </li>
             <li>
               <Link
                 href="/request-demo"
                 className="block px-6 py-4 text-white bg-gradient-to-r from-fuchsia-500 to-purple-600"
+                onClick={() => setOpen(false)}
               >
                 Request Demo
               </Link>
