@@ -1,13 +1,11 @@
 import React from "react";
 import { FaSearch, FaBell, FaUserCircle } from "react-icons/fa";
 
-// Bu bileşen tüm admin sayfalarının üst kısmında yer alan Topbar (üst menü) çubuğudur.
 export default function Topbar() {
   return (
-    <div className="w-full px-6 py-4 flex justify-between items-center border-b bg-white sticky top-0 z-30">
-      
-      {/* Sol tarafta arama alanı */}
-      <div className="flex items-center bg-gray-100 rounded-lg px-3 py-1 w-full max-w-md">
+    <div className="w-full px-3 sm:px-6 py-3 sm:py-4 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0 border-b bg-white sticky top-0 z-30">
+      {/* Sol: Arama */}
+      <div className="flex items-center bg-gray-100 rounded-lg px-2 py-1 sm:px-3 w-full max-w-xs sm:max-w-md mx-auto sm:mx-0">
         <FaSearch className="text-gray-500 mr-2" />
         <input
           type="text"
@@ -16,12 +14,9 @@ export default function Topbar() {
         />
       </div>
 
-      {/* Sağ tarafta ikonlar (bildirim ve kullanıcı) */}
-      <div className="flex items-center gap-4">
-        {/* Bildirim simgesi */}
-        <FaBell className="text-gray-500 cursor-pointer hover:text-black" />
-
-        {/* Kullanıcı simgesi */}
+      {/* Sağ: İkonlar */}
+      <div className="flex items-center justify-end gap-3 sm:gap-4 mt-2 sm:mt-0">
+        <FaBell className="text-gray-500 cursor-pointer hover:text-black text-lg sm:text-base" />
         <FaUserCircle className="text-gray-600 text-2xl" />
       </div>
     </div>

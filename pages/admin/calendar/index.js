@@ -25,10 +25,10 @@ const CalendarPage = () => {
       : events.filter((e) => e.platform === selectedPlatform);
 
   return (
-    <div className="p-4 sm:p-6 max-w-full">
+    <div className="p-2 sm:p-6 max-w-full">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
-        <h1 className="text-xl sm:text-2xl font-bold">Calendar</h1>
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-4 mb-3 sm:mb-4">
+        <h1 className="text-lg sm:text-2xl font-bold">Calendar</h1>
         <div className="flex flex-wrap gap-2">
           <select
             className="border rounded px-3 py-1 text-sm sm:text-base"
@@ -44,13 +44,15 @@ const CalendarPage = () => {
       </div>
 
       {/* Calendar Container */}
-      <div className="bg-white rounded-lg shadow overflow-hidden max-w-full">
-        <FullCalendar
-          plugins={[dayGridPlugin, interactionPlugin]}
-          initialView="dayGridMonth"
-          events={filteredEvents}
-          height="auto"
-        />
+      <div className="bg-white rounded-none sm:rounded-lg shadow overflow-x-auto max-w-full">
+        <div className="min-w-[320px] sm:min-w-0">
+          <FullCalendar
+            plugins={[dayGridPlugin, interactionPlugin]}
+            initialView="dayGridMonth"
+            events={filteredEvents}
+            height="auto"
+          />
+        </div>
       </div>
     </div>
   );
