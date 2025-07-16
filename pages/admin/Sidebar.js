@@ -1,8 +1,9 @@
 import Link from "next/link";
+import { useState } from "react";
 import { FaTachometerAlt, FaClipboardList, FaCalendarAlt, FaChartBar, FaPuzzlePiece, FaDollarSign, FaCog, FaSignOutAlt, FaAd } from "react-icons/fa";
 import { useRouter } from "next/router";
 
-// SidebarLink component örnek
+// SidebarLink component
 function SidebarLink({ href, icon, label, active, isOpen }) {
   return (
     <Link href={href} legacyBehavior>
@@ -21,9 +22,10 @@ function SidebarLink({ href, icon, label, active, isOpen }) {
 
 export default function Sidebar({ isOpen = true }) {
   const router = useRouter();
+  const [manualAdsOpen, setManualAdsOpen] = useState(false);
 
-  // Aktif route kontrolü
   const isActive = (path) => router.pathname === path;
+  const isManualAdsActive = router.pathname.startsWith("/admin/manual-ads");
 
   return (
     <aside className={`h-screen flex flex-col bg-white border-r w-[72px] md:w-64 transition-all duration-200 shadow-sm`}>
@@ -51,7 +53,7 @@ export default function Sidebar({ isOpen = true }) {
         </div>
       )}
 
-      {/* Main menu */}
+      {/* Main menu başlık */}
       {isOpen && <div className="px-5 mt-3 mb-1 text-xs text-gray-400 font-semibold">Main Menu</div>}
 
       <nav className="flex-1 flex flex-col gap-1">
@@ -76,13 +78,43 @@ export default function Sidebar({ isOpen = true }) {
           active={isActive("/admin/create-ad")}
           isOpen={isOpen}
         />
-        <SidebarLink
-          href="#"
-          icon={<FaClipboardList className="text-base" />}
-          label="Manual Ads"
-          active={false}
-          isOpen={isOpen}
-        />
+
+        {/* Manual Ads - Açılır Menü ve yönlendirme */}
+        <div className="relative">
+          <button
+            type="button"
+            className={`
+              flex items-center gap-2 px-4 py-2 rounded transition w-full
+              ${isManualAdsActive ? "bg-gray-100 text-purple-700 font-bold" : "text-gray-700 hover:bg-gray-50"}
+              ${isOpen ? "" : "justify-center"}
+            `}
+            onClick={() => {
+              // Yönlendirme + menü açma
+              router.push("/admin/manual-ads");
+              setManualAdsOpen((v) => !v);
+            }}
+          >
+            <FaClipboardList className="text-base" />
+            {isOpen && <span>Manual Ads</span>}
+            {isOpen && (
+              <span className={`ml-auto transition-transform ${manualAdsOpen ? "rotate-90" : ""}`}>
+                
+              </span>
+            )}
+          </button>
+          {/* ALT MENÜLER */}
+          {manualAdsOpen && isOpen && (
+            <div className="ml-8 flex flex-col">
+              <Link href="/admin/manual-ads/google" legacyBehavior>
+                <a className={`px-4 py-1 text-sm rounded ${isActive("/admin/manual-ads/google") ? "bg-purple-100 font-bold text-purple-700" : "text-gray-700 hover:bg-gray-100"}`}>Google Ads</a>
+              </Link>
+              <Link href="/admin/manual-ads/meta" legacyBehavior>
+                <a className={`px-4 py-1 text-sm rounded ${isActive("/admin/manual-ads/meta") ? "bg-purple-100 font-bold text-purple-700" : "text-gray-700 hover:bg-gray-100"}`}>Meta Ads</a>
+              </Link>
+            </div>
+          )}
+        </div>
+
         <SidebarLink
           href="/admin/calendar"
           icon={<FaCalendarAlt className="text-base" />}
