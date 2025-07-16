@@ -4,6 +4,7 @@ import Sidebar from "../Sidebar";
 
 export default function TikTokContentSelection() {
   const [selectedVideoId, setSelectedVideoId] = useState(null);
+  const [uploadedVideo, setUploadedVideo] = useState(null);
   const router = useRouter();
 
   const videos = [
@@ -65,12 +66,32 @@ export default function TikTokContentSelection() {
     },
   ];
 
-  const handleSelect = (id) => setSelectedVideoId(id);
+  const handleSelect = (id) => {
+    setSelectedVideoId(id);
+    setUploadedVideo(null); // Kart seçilince upload sıfırlansın
+  };
+
+  const handleUploadChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (!file.type.startsWith("video/")) {
+      alert("Only video files are allowed.");
+      return;
+    }
+    if (file.size > 40 * 1024 * 1024) {
+      alert("Video size must be less than 40MB.");
+      return;
+    }
+    setUploadedVideo(file);
+    setSelectedVideoId(null); // Yüklenirse kart seçimi sıfırlansın
+  };
 
   const handleContinue = () => {
-    if (selectedVideoId) {
+    if (selectedVideoId || uploadedVideo) {
       router.push(
-        `/admin/create-ad/budget?platform=tiktok&videoId=${selectedVideoId}`
+        `/admin/create-ad/budget?platform=tiktok` +
+        (selectedVideoId ? `&videoId=${selectedVideoId}` : "") +
+        (uploadedVideo ? `&uploaded=1` : "")
       );
     }
   };
@@ -85,6 +106,7 @@ export default function TikTokContentSelection() {
             Choose a video from your TikTok account to turn into an ad
           </p>
 
+          {/* Video Kartları */}
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
             {videos.map((video) => {
               const isSelected = selectedVideoId === video.id;
@@ -151,17 +173,14 @@ export default function TikTokContentSelection() {
                     <p className="text-gray-600 text-sm mb-4 line-clamp-3">
                       {video.description}
                     </p>
-
                     <div className="flex text-xs text-gray-600 gap-4 mb-2 flex-wrap">
                       <span>👁 {video.views}</span>
                       <span>❤️ {video.likes}</span>
                       <span>🔁 {video.shares}</span>
                       <span>💬 {video.comments}</span>
                     </div>
-
                     <div className="text-xs text-gray-500 mt-auto">{video.date}</div>
                   </div>
-
                   <div className="absolute bottom-4 right-4 bg-black text-white rounded px-3 py-1 text-xs">
                     {video.duration}
                   </div>
@@ -170,16 +189,66 @@ export default function TikTokContentSelection() {
             })}
           </div>
 
+          {/* Upload a New Video Alanı */}
+          <div className="mt-12 w-full">
+            <div className="w-full border-2 border-dashed border-gray-300 rounded-xl py-10 px-6 flex flex-col items-center justify-center bg-white hover:border-gray-400 transition">
+              <div className="flex flex-col items-center mb-4">
+                <div className="bg-gray-100 rounded-full p-3 mb-2">
+                  <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
+                    <path
+                      d="M12 16V4m0 0l-4 4m4-4l4 4M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"
+                      stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+                <div className="font-semibold text-gray-700 text-lg mb-1">Upload a New Video</div>
+                <div className="text-gray-500 text-sm text-center mb-2">
+                  Create fresh content specifically for your campaign
+                </div>
+              </div>
+              <label
+                className="w-full flex flex-col sm:flex-row items-center gap-4 cursor-pointer"
+                htmlFor="tiktok-upload"
+              >
+                <input
+                  type="file"
+                  accept="video/*"
+                  id="tiktok-upload"
+                  className="hidden"
+                  onChange={handleUploadChange}
+                />
+                <span className="flex-1 text-gray-500">
+                  {uploadedVideo ? (
+                    <span className="text-green-600 font-semibold">{uploadedVideo.name}</span>
+                  ) : (
+                    "Choose video file..."
+                  )}
+                </span>
+                <span
+                  className="inline-flex items-center px-6 py-2 rounded-lg bg-gray-800 text-white font-semibold shadow hover:bg-black transition"
+                >
+                  <svg className="mr-2" width="20" height="20" fill="none" viewBox="0 0 24 24">
+                    <path
+                      d="M12 16V4m0 0l-4 4m4-4l4 4M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"
+                      stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                    />
+                  </svg>
+                  Upload Video
+                </span>
+              </label>
+            </div>
+          </div>
+
           <div className="mt-8 flex justify-end">
             <button
               onClick={handleContinue}
-              disabled={!selectedVideoId}
+              disabled={!selectedVideoId && !uploadedVideo}
               className={`w-full sm:w-auto bg-blue-600 text-white font-semibold px-6 py-3 rounded shadow-lg
-              transition-opacity duration-300 ${
-                selectedVideoId
-                  ? "opacity-100 hover:bg-blue-700"
-                  : "opacity-50 cursor-not-allowed"
-              }`}
+                transition-opacity duration-300 ${
+                  selectedVideoId || uploadedVideo
+                    ? "opacity-100 hover:bg-blue-700"
+                    : "opacity-50 cursor-not-allowed"
+                }`}
             >
               Continue to Budget →
             </button>

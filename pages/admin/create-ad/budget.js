@@ -7,16 +7,16 @@ export default function BudgetPage() {
   const { platform, goal } = router.query;
 
   const [budgetType, setBudgetType] = useState("daily");
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState(0);
   const [duration, setDuration] = useState(7);
 
   const totalCost = amount && duration ? amount * duration : 0;
 
-  const handleLaunchCampaign = () => {
-    router.push(
-      `/admin/create-ad/launch?platform=${platform}&goal=${goal}&budgetType=${budgetType}&amount=${amount}&duration=${duration}`
-    );
-  };
+  function handleLaunchCampaign() {
+    // Kampanya kaydı burada yapılabilir (API vs.)
+    // Sonrasında admin ana sayfasına yönlendiriyoruz:
+    router.push("/admin");
+  }
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
