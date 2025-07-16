@@ -1,4 +1,3 @@
-// components/home/WhyChoose.js
 export default function WhyChoose() {
   const items = [
     {
@@ -25,12 +24,12 @@ export default function WhyChoose() {
       icon: '⚙️',
       color: 'bg-orange-500'
     }
-  ]
+  ];
 
   return (
-    <section className="py-20">
-      <div className="container max-w-7xl mx-auto">
-        <h2 className="text-4xl font-bold text-center">Why Choose Tarvina AI?</h2>
+    <section className="py-20 bg-white">
+      <div className="container max-w-7xl mx-auto px-6">
+        <h2 className="text-3xl sm:text-4xl font-bold text-center">Why Choose Tarvina AI?</h2>
         <p className="text-center max-w-2xl mx-auto mt-4 text-gray-600">
           Everything you need to dominate digital advertising with the power of artificial intelligence
         </p>
@@ -40,7 +39,7 @@ export default function WhyChoose() {
             <div
               key={title}
               className="flex flex-col items-center text-center rounded-xl shadow-sm border border-gray-100
-                         bg-white p-8 hover:shadow-md transition"
+                         bg-white p-6 md:p-8 hover:shadow-md transition"
             >
               <div
                 className={`${color} text-white text-2xl h-14 w-14 flex items-center
@@ -49,12 +48,12 @@ export default function WhyChoose() {
                 {icon}
               </div>
 
-              <h3 className="font-semibold text-lg leading-tight">{title}</h3>
-              <p className="text-gray-600 text-sm mt-4">{text}</p>
+              <h3 className="font-semibold text-base md:text-lg leading-tight">{title}</h3>
+              <p className="text-gray-600 text-sm mt-3">{text}</p>
             </div>
           ))}
         </div>
       </div>
     </section>
-  )
+  );
 }

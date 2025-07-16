@@ -76,107 +76,115 @@ export default function TikTokContentSelection() {
   };
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex flex-col lg:flex-row min-h-screen">
       <Sidebar />
-      <div className="flex-1 p-8 bg-[#f5f6fa] relative">
-        <h2 className="text-3xl font-bold mb-6">TikTok</h2>
-        <p className="mb-8 text-gray-700 text-lg">
-          Choose a video from your TikTok account to turn into an ad
-        </p>
+      <div className="flex-1 p-4 sm:p-6 md:p-8 bg-[#f5f6fa] relative">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4">TikTok</h2>
+          <p className="mb-6 text-gray-700 text-sm sm:text-base">
+            Choose a video from your TikTok account to turn into an ad
+          </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {videos.map((video) => {
-            const isSelected = selectedVideoId === video.id;
-            return (
-              <div
-                key={video.id}
-                onClick={() => handleSelect(video.id)}
-                className={`cursor-pointer bg-white rounded-lg shadow-md border transition-all flex flex-col relative
-                  ${isSelected ? "border-4 border-black shadow-xl" : "border-transparent"}
-                `}
-                style={{ minHeight: "550px" }}
-              >
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+            {videos.map((video) => {
+              const isSelected = selectedVideoId === video.id;
+              return (
                 <div
-                  className={`absolute top-4 left-4 rounded-full px-3 py-1 text-xs font-semibold ${video.performanceColor}`}
+                  key={video.id}
+                  onClick={() => handleSelect(video.id)}
+                  className={`cursor-pointer bg-white rounded-lg shadow-md border transition-all flex flex-col relative
+                    ${
+                      isSelected
+                        ? "border-4 border-black shadow-xl"
+                        : "border-transparent"
+                    }`}
                 >
-                  {video.performance}
-                </div>
-
-                <div className="bg-gray-300 h-64 flex items-center justify-center relative">
-                  {!isSelected && (
-                    <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center absolute cursor-pointer">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="black"
-                        viewBox="0 0 24 24"
-                        strokeWidth={2}
-                        stroke="black"
-                        className="w-8 h-8"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M14.752 11.168l-6.518-3.75A.75.75 0 007 8.25v7.5a.75.75 0 001.234.624l6.518-3.75a.75.75 0 000-1.296z"
-                        />
-                      </svg>
-                    </div>
-                  )}
-                  {isSelected && (
-                    <div className="w-14 h-14 bg-black rounded-full flex items-center justify-center absolute">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="white"
-                        viewBox="0 0 24 24"
-                        strokeWidth={2}
-                        stroke="white"
-                        className="w-8 h-8"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                    </div>
-                  )}
-                </div>
-
-                <div className="p-6 flex flex-col flex-grow">
-                  <h3 className="font-semibold mb-3 text-xl">{video.title}</h3>
-                  <p className="text-gray-600 text-base mb-4">
-                    {video.description}
-                  </p>
-
-                  <div className="flex text-sm text-gray-600 gap-6 mb-4 flex-wrap">
-                    <span>👁 {video.views}</span>
-                    <span>❤️ {video.likes}</span>
-                    <span>🔁 {video.shares}</span>
-                    <span>💬 {video.comments}</span>
+                  <div
+                    className={`absolute top-4 left-4 rounded-full px-3 py-1 text-xs font-semibold ${video.performanceColor}`}
+                  >
+                    {video.performance}
                   </div>
 
-                  <div className="text-sm text-gray-500">{video.date}</div>
-                </div>
+                  <div className="bg-gray-300 h-48 sm:h-56 flex items-center justify-center relative">
+                    {!isSelected && (
+                      <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center absolute cursor-pointer">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="black"
+                          viewBox="0 0 24 24"
+                          strokeWidth={2}
+                          stroke="black"
+                          className="w-8 h-8"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M14.752 11.168l-6.518-3.75A.75.75 0 007 8.25v7.5a.75.75 0 001.234.624l6.518-3.75a.75.75 0 000-1.296z"
+                          />
+                        </svg>
+                      </div>
+                    )}
+                    {isSelected && (
+                      <div className="w-14 h-14 bg-black rounded-full flex items-center justify-center absolute">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="white"
+                          viewBox="0 0 24 24"
+                          strokeWidth={2}
+                          stroke="white"
+                          className="w-8 h-8"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      </div>
+                    )}
+                  </div>
 
-                <div className="absolute bottom-5 right-5 bg-black text-white rounded px-3 py-1 text-sm">
-                  {video.duration}
+                  <div className="p-4 flex flex-col flex-grow">
+                    <h3 className="font-semibold mb-2 text-base sm:text-lg">
+                      {video.title}
+                    </h3>
+                    <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                      {video.description}
+                    </p>
+
+                    <div className="flex text-xs text-gray-600 gap-4 mb-2 flex-wrap">
+                      <span>👁 {video.views}</span>
+                      <span>❤️ {video.likes}</span>
+                      <span>🔁 {video.shares}</span>
+                      <span>💬 {video.comments}</span>
+                    </div>
+
+                    <div className="text-xs text-gray-500 mt-auto">{video.date}</div>
+                  </div>
+
+                  <div className="absolute bottom-4 right-4 bg-black text-white rounded px-3 py-1 text-xs">
+                    {video.duration}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
+
+          <div className="mt-8 flex justify-end">
+            <button
+              onClick={handleContinue}
+              disabled={!selectedVideoId}
+              className={`w-full sm:w-auto bg-blue-600 text-white font-semibold px-6 py-3 rounded shadow-lg
+              transition-opacity duration-300 ${
+                selectedVideoId
+                  ? "opacity-100 hover:bg-blue-700"
+                  : "opacity-50 cursor-not-allowed"
+              }`}
+            >
+              Continue to Budget →
+            </button>
+          </div>
         </div>
-
-        <button
-          onClick={handleContinue}
-          disabled={!selectedVideoId}
-          className={`fixed bottom-8 right-8 bg-blue-600 text-white font-semibold px-6 py-3 rounded shadow-lg
-            transition-opacity duration-300 ${
-              selectedVideoId
-                ? "opacity-100"
-                : "opacity-50 cursor-not-allowed"
-            }`}
-        >
-          Continue to Budget
-        </button>
       </div>
     </div>
   );

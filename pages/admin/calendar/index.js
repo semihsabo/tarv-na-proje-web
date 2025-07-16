@@ -25,12 +25,13 @@ const CalendarPage = () => {
       : events.filter((e) => e.platform === selectedPlatform);
 
   return (
-    <div className="p-6">
-      <div className="flex items-center justify-between mb-4">
-        <h1 className="text-2xl font-bold">Calendar</h1>
-        <div className="flex gap-2">
+    <div className="p-4 sm:p-6 max-w-full">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
+        <h1 className="text-xl sm:text-2xl font-bold">Calendar</h1>
+        <div className="flex flex-wrap gap-2">
           <select
-            className="border rounded px-3 py-1"
+            className="border rounded px-3 py-1 text-sm sm:text-base"
             value={selectedPlatform}
             onChange={(e) => setSelectedPlatform(e.target.value)}
           >
@@ -39,11 +40,11 @@ const CalendarPage = () => {
             <option value="google">Google</option>
             <option value="tiktok">TikTok</option>
           </select>
-          {/* Toggle switchleri istersen buraya ekleriz */}
         </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow overflow-hidden">
+      {/* Calendar Container */}
+      <div className="bg-white rounded-lg shadow overflow-hidden max-w-full">
         <FullCalendar
           plugins={[dayGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"

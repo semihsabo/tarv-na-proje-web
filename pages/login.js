@@ -4,7 +4,7 @@ export default function Login() {
   const [tab, setTab] = useState('signin')
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gray-50 py-12">
+    <section className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <img
@@ -19,7 +19,8 @@ export default function Login() {
             Intelligent advertising management platform
           </p>
         </div>
-        <div className="bg-white py-8 px-6 shadow rounded-lg">
+
+        <div className="bg-white py-8 px-6 sm:px-8 shadow rounded-lg">
           <h3 className="text-xl font-semibold text-gray-900 mb-2 text-center">
             Welcome
           </h3>
@@ -89,7 +90,7 @@ export default function Login() {
           </div>
 
           {/* Social */}
-          <div className="mt-6 flex justify-between space-x-4">
+          <div className="mt-6 flex flex-col sm:flex-row justify-between gap-4">
             {['G', 'T', 'G'].map((icon, idx) => (
               <button
                 key={idx}
@@ -101,7 +102,7 @@ export default function Login() {
           </div>
         </div>
 
-        <p className="text-center text-xs text-gray-500">
+        <p className="text-center text-xs text-gray-500 px-2">
           By continuing, you agree to our{' '}
           <a href="#" className="text-indigo-600 hover:underline">
             Terms of Service

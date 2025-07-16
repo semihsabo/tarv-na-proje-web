@@ -1,6 +1,5 @@
-// pages/blog.js
-import React from 'react'
-import Link from 'next/link'
+import React from 'react';
+import Link from 'next/link';
 import {
   MagnifyingGlassIcon,
   ArrowRightIcon,
@@ -12,7 +11,7 @@ import {
   UserIcon,
   CalendarDaysIcon,
   ClockIcon
-} from '@heroicons/react/24/outline'
+} from '@heroicons/react/24/outline';
 
 /* -------- MOCK DATA -------- */
 const featured = {
@@ -25,7 +24,7 @@ const featured = {
   readTime: '12 min read',
   href: '/blog/ai-facebook-advertising-2024',
   image: 'https://kzmq3qo0hytc6cema1rl.lite.vusercontent.net/blog/featured-fb-ai.jpg'
-}
+};
 
 const categories = [
   { title: 'AI Advertising', count: 12, icon: BoltIcon, href: '/blog/category/ai-advertising' },
@@ -34,7 +33,7 @@ const categories = [
   { title: 'Analytics', count: 6, icon: ChartPieIcon, href: '/blog/category/analytics' },
   { title: 'Creative Strategy', count: 5, icon: MagnifyingGlassIcon, href: '/blog/category/creative-strategy' },
   { title: 'Industry Insights', count: 7, icon: ChartBarSquareIcon, href: '/blog/category/industry-insights' }
-]
+];
 
 const articles = [
   {
@@ -70,34 +69,27 @@ const articles = [
     href: '/blog/roi-tracking-multi-platform',
     image: 'https://kzmq3qo0hytc6cema1rl.lite.vusercontent.net/blog/meta-advantage.jpg'
   }
-]
+];
 
 export default function Blog() {
   return (
     <main>
-      {/* ---------- HERO ---------- */}
-      <section className="relative bg-gradient-to-r from-indigo-50 to-white py-24">
-        <div className="max-w-3xl mx-auto text-center px-4">
+      {/* HERO */}
+      <section className="relative bg-gradient-to-r from-indigo-50 to-white py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto text-center">
           <div className="flex justify-center mb-6">
             <span className="inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold rounded-full bg-indigo-100 text-indigo-700">
               <BoltIcon className="w-4 h-4" />
               Tarvina AI Blog
             </span>
           </div>
-
-          <h1 className="text-5xl font-bold mb-4">
-            Master{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-pink-500">
-              AI-Powered
-            </span>{' '}
-            Advertising
+          <h1 className="text-4xl sm:text-5xl font-bold mb-4">
+            Master <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-pink-500">AI-Powered</span> Advertising
           </h1>
           <p className="text-gray-600 mb-10">
-            Stay ahead of the curve with expert insights, strategies, and tutorials on AI-powered advertising across Meta,
-            Google, and TikTok platforms.
+            Stay ahead of the curve with expert insights, strategies, and tutorials on AI-powered advertising across Meta, Google, and TikTok platforms.
           </p>
-
-          <div className="relative mx-auto max-w-xl">
+          <div className="relative max-w-xl mx-auto">
             <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
             <input
               type="text"
@@ -108,11 +100,10 @@ export default function Blog() {
         </div>
       </section>
 
-      {/* ---------- FEATURED ARTICLE ---------- */}
-      <section className="py-24 px-4">
+      {/* FEATURED */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold mb-8">Featured Article</h2>
-
           <div className="bg-white rounded-3xl shadow-lg overflow-hidden grid grid-cols-1 lg:grid-cols-2">
             <img src={featured.image} alt={featured.title} className="w-full h-80 object-cover" />
             <div className="p-8 flex flex-col justify-center">
@@ -121,22 +112,17 @@ export default function Blog() {
               </span>
               <h3 className="text-2xl font-bold mb-4">{featured.title}</h3>
               <p className="text-gray-600 mb-6">{featured.excerpt}</p>
-
-              <div className="flex items-center text-gray-500 text-sm gap-x-6 mb-6">
+              <div className="flex flex-wrap gap-x-6 text-sm text-gray-500 mb-6">
                 <div className="flex items-center gap-x-1">
-                  <UserIcon className="w-4 h-4" />
-                  {featured.author}
+                  <UserIcon className="w-4 h-4" /> {featured.author}
                 </div>
                 <div className="flex items-center gap-x-1">
-                  <CalendarDaysIcon className="w-4 h-4" />
-                  {featured.date}
+                  <CalendarDaysIcon className="w-4 h-4" /> {featured.date}
                 </div>
                 <div className="flex items-center gap-x-1">
-                  <ClockIcon className="w-4 h-4" />
-                  {featured.readTime}
+                  <ClockIcon className="w-4 h-4" /> {featured.readTime}
                 </div>
               </div>
-
               <Link
                 href={featured.href}
                 className="inline-flex items-center px-5 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-full hover:from-indigo-600 hover:to-purple-600 transition"
@@ -149,14 +135,13 @@ export default function Blog() {
         </div>
       </section>
 
-      {/* ---------- BROWSE BY CATEGORY ---------- */}
-      <section className="py-20 bg-indigo-50">
-        <div className="max-w-3xl mx-auto text-center px-4">
+      {/* CATEGORIES */}
+      <section className="py-20 bg-indigo-50 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto text-center mb-12">
           <h2 className="text-3xl font-bold mb-2">Browse by Category</h2>
-          <p className="text-gray-600 mb-12">Find articles tailored to your specific interests and needs</p>
+          <p className="text-gray-600">Find articles tailored to your specific interests and needs</p>
         </div>
-
-        <div className="max-w-7xl mx-auto grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 px-4">
+        <div className="max-w-7xl mx-auto grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {categories.map((cat) => (
             <Link
               key={cat.title}
@@ -171,14 +156,13 @@ export default function Blog() {
         </div>
       </section>
 
-      {/* ---------- LATEST ARTICLES ---------- */}
-      <section className="py-20">
-        <div className="max-w-3xl mx-auto text-center px-4">
+      {/* LATEST ARTICLES */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto text-center mb-12">
           <h2 className="text-3xl font-bold mb-2">Latest Articles</h2>
-          <p className="text-gray-600 mb-12">Stay updated with the latest trends and strategies in AI advertising</p>
+          <p className="text-gray-600">Stay updated with the latest trends and strategies in AI advertising</p>
         </div>
-
-        <div className="max-w-7xl mx-auto grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 px-4">
+        <div className="max-w-7xl mx-auto grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {articles.map((post) => (
             <article
               key={post.href}
@@ -201,7 +185,7 @@ export default function Blog() {
                   </Link>
                 </h3>
                 <p className="text-gray-600 text-sm mb-4 line-clamp-3 flex-1">{post.excerpt}</p>
-                <div className="flex items-center gap-x-6 text-xs text-gray-500 mt-auto">
+                <div className="flex flex-wrap gap-x-4 text-xs text-gray-500 mt-auto">
                   <div className="flex items-center gap-x-1">
                     <UserIcon className="w-4 h-4" />
                     {post.author}
@@ -221,21 +205,20 @@ export default function Blog() {
         </div>
       </section>
 
-      {/* ---------- SUBSCRIBE CTA ---------- */}
-      <section className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 py-24">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="mx-auto max-w-3xl rounded-3xl bg-white/10 backdrop-blur-sm p-12 text-center shadow-2xl">
+      {/* SUBSCRIBE CTA */}
+      <section className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 py-20 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="mx-auto max-w-3xl rounded-3xl bg-white/10 backdrop-blur-sm p-8 sm:p-12 text-center shadow-2xl">
             <h2 className="text-3xl font-bold text-white mb-4">Stay in the Loop</h2>
             <p className="text-indigo-100 mb-10">
               Get the latest AI advertising insights, strategies, and platform updates
-              <br />
+              <br className="hidden sm:block" />
               delivered to your inbox weekly.
             </p>
-
             <form
               onSubmit={(e) => {
-                e.preventDefault()
-                /* <— Mailchimp / Supabase entegrasyonun burada —> */
+                e.preventDefault();
+                // Add email service logic here
               }}
               className="flex flex-col sm:flex-row items-center justify-center gap-4"
             >
@@ -253,11 +236,10 @@ export default function Blog() {
                 <ArrowRightIcon className="w-4 h-4 ml-2" />
               </button>
             </form>
-
             <p className="text-indigo-200 text-xs mt-6">No spam, unsubscribe anytime</p>
           </div>
         </div>
       </section>
     </main>
-  )
+  );
 }

@@ -52,33 +52,41 @@ export default function GoogleAdsContentSelection() {
 
   const handleContinue = () => {
     router.push(
-      `/admin/create-ad/launch?platform=${platform}&goal=${campaignGoal}&websiteURL=${encodeURIComponent(websiteURL)}`
+      `/admin/create-ad/launch?platform=${platform}&goal=${campaignGoal}&websiteURL=${encodeURIComponent(
+        websiteURL
+      )}`
     );
   };
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex flex-col lg:flex-row min-h-screen">
       <Sidebar />
-      <div className="flex-1 p-8 bg-[#fefbff]">
-        <div className="max-w-4xl mx-auto bg-white rounded shadow p-8">
-          <h2 className="text-3xl font-bold mb-6 text-center">
+      <div className="flex-1 p-4 sm:p-6 md:p-8 bg-[#fefbff]">
+        <div className="max-w-5xl mx-auto bg-white rounded shadow p-4 sm:p-6 md:p-8">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-center">
             Google Ads Campaign Setup
           </h2>
 
-          {/* Campaign Goal seçimi */}
+          {/* Campaign Goal */}
           <section className="mb-8">
-            <h3 className="text-xl font-semibold mb-4">Campaign Goal</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <h3 className="text-lg sm:text-xl font-semibold mb-4">
+              Campaign Goal
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {campaignGoals.map((goal) => (
                 <button
                   key={goal.id}
                   disabled={goal.disabled}
                   onClick={() => setCampaignGoal(goal.id)}
-                  className={`border rounded p-4 text-left focus:outline-none ${
+                  className={`border rounded p-4 text-left transition-all duration-200 ease-in-out ${
                     campaignGoal === goal.id
                       ? "border-blue-600 bg-blue-50"
                       : "border-gray-300 bg-white"
-                  } ${goal.disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
+                  } ${
+                    goal.disabled
+                      ? "opacity-50 cursor-not-allowed"
+                      : "cursor-pointer hover:shadow-md"
+                  }`}
                 >
                   <div className="flex justify-between items-center mb-2">
                     <span className="font-semibold">{goal.title}</span>
@@ -88,7 +96,7 @@ export default function GoogleAdsContentSelection() {
                       </span>
                     )}
                   </div>
-                  <p className="text-gray-600">{goal.description}</p>
+                  <p className="text-sm text-gray-600">{goal.description}</p>
                 </button>
               ))}
             </div>
@@ -96,7 +104,9 @@ export default function GoogleAdsContentSelection() {
 
           {/* Website to Advertise */}
           <section className="mb-8">
-            <h3 className="text-xl font-semibold mb-4">Website to Advertise</h3>
+            <h3 className="text-lg sm:text-xl font-semibold mb-4">
+              Website to Advertise
+            </h3>
             <input
               type="url"
               placeholder="https://your-website.com"
@@ -107,7 +117,8 @@ export default function GoogleAdsContentSelection() {
             />
           </section>
 
-          <div className="flex justify-between items-center">
+          {/* Navigation Buttons */}
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <Link
               href={`/admin/create-ad/content-selection?platform=${platform}`}
               className="text-blue-600 hover:underline"
@@ -118,7 +129,7 @@ export default function GoogleAdsContentSelection() {
             <button
               disabled={!canContinue}
               onClick={handleContinue}
-              className={`bg-blue-600 text-white font-semibold px-6 py-3 rounded disabled:opacity-50 disabled:cursor-not-allowed transition`}
+              className="w-full sm:w-auto bg-blue-600 text-white font-semibold px-6 py-3 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-700 transition"
             >
               Continue to Launch →
             </button>

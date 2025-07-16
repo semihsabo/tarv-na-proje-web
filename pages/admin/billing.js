@@ -1,6 +1,6 @@
 import React from "react";
 import { FaDownload, FaExclamationCircle } from "react-icons/fa";
-import Sidebar from "./Sidebar"; // Dosya yolunu yapına göre ayarla
+import Sidebar from "./Sidebar";
 
 export default function BillingPage() {
   const invoices = [
@@ -21,19 +21,20 @@ export default function BillingPage() {
   ];
 
   return (
-    <main className="flex min-h-screen">
+    <main className="flex flex-col lg:flex-row min-h-screen">
       <Sidebar />
-      <div className="flex-1 p-6 bg-gray-50 overflow-auto">
+      <div className="flex-1 p-4 sm:p-6 bg-gray-50 overflow-auto">
         <h1 className="text-2xl font-bold mb-4">Billing & Usage</h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-          <div className="bg-white p-4 rounded shadow">
+        {/* Metric Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <div className="bg-white p-4 rounded shadow-sm">
             <h2 className="text-sm text-gray-500 mb-1">Current Plan</h2>
             <p className="text-lg font-bold">Professional</p>
             <p className="text-xs text-gray-400">Next billing: 01.07.2024</p>
           </div>
 
-          <div className="bg-white p-4 rounded shadow">
+          <div className="bg-white p-4 rounded shadow-sm">
             <h2 className="text-sm text-gray-500 mb-1">Monthly Spend</h2>
             <p className="text-lg font-bold">$4.250</p>
             <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
@@ -45,44 +46,46 @@ export default function BillingPage() {
             <p className="text-xs text-gray-400 mt-1">of $5.000 limit</p>
           </div>
 
-          <div className="bg-white p-4 rounded shadow">
+          <div className="bg-white p-4 rounded shadow-sm">
             <h2 className="text-sm text-gray-500 mb-1">Payment Method</h2>
             <p className="text-lg font-bold">************4242</p>
             <p className="text-xs text-gray-400">Visa ending in 4242</p>
           </div>
 
-          <div className="bg-white p-4 rounded shadow">
+          <div className="bg-white p-4 rounded shadow-sm">
             <h2 className="text-sm text-gray-500 mb-1">Status</h2>
             <p className="text-green-600 font-semibold text-lg">Active</p>
             <p className="text-xs text-gray-400">All systems operational</p>
           </div>
         </div>
 
-        <div className="bg-yellow-100 border border-yellow-300 p-4 rounded flex justify-between items-center mb-6">
-          <div className="flex items-center gap-2 text-yellow-800">
-            <FaExclamationCircle className="text-yellow-600" />
+        {/* Alert Box */}
+        <div className="bg-yellow-100 border border-yellow-300 p-4 rounded flex flex-col md:flex-row justify-between items-start md:items-center gap-3 mb-6">
+          <div className="flex items-start gap-2 text-yellow-800 text-sm">
+            <FaExclamationCircle className="mt-1 text-yellow-600" />
             <span>
-              You've used 85% of your monthly ad spend limit. Consider upgrading
-              your plan to avoid campaign interruptions.
+              You've used 85% of your monthly ad spend limit. Consider upgrading your plan to avoid campaign interruptions.
             </span>
           </div>
-          <button className="bg-white text-yellow-800 border border-yellow-500 px-4 py-1 rounded hover:bg-yellow-200">
+          <button className="bg-white text-yellow-800 border border-yellow-500 px-4 py-1 rounded hover:bg-yellow-200 text-sm whitespace-nowrap">
             Upgrade Plan
           </button>
         </div>
 
-        <div className="mb-4">
-          <button className="bg-black text-white px-4 py-2 rounded mr-2">Update Payment</button>
-          <button className="bg-white border px-4 py-2 rounded flex items-center gap-1">
+        {/* Action Buttons */}
+        <div className="flex flex-wrap gap-2 mb-4">
+          <button className="bg-black text-white px-4 py-2 rounded text-sm">Update Payment</button>
+          <button className="bg-white border px-4 py-2 rounded flex items-center gap-1 text-sm">
             <FaDownload /> Download Invoice
           </button>
         </div>
 
-        <div className="bg-white p-4 rounded shadow">
+        {/* Table Section */}
+        <div className="bg-white p-4 rounded shadow-sm">
           <h2 className="text-lg font-bold mb-4">Billing History</h2>
           <div className="overflow-x-auto">
             <table className="min-w-full text-sm text-left">
-              <thead className="text-gray-500">
+              <thead className="text-gray-500 whitespace-nowrap">
                 <tr>
                   <th className="px-4 py-2">Invoice</th>
                   <th className="px-4 py-2">Date</th>

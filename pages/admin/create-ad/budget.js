@@ -2,9 +2,6 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import Sidebar from "../Sidebar";
 
-
-
-
 export default function BudgetPage() {
   const router = useRouter();
   const { platform, goal } = router.query;
@@ -22,14 +19,16 @@ export default function BudgetPage() {
   };
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex flex-col lg:flex-row min-h-screen">
       <Sidebar />
-      <div className="flex-1 p-8 bg-[#fefbff]">
-        <div className="max-w-4xl mx-auto bg-white rounded shadow p-8">
-          <h2 className="text-3xl font-bold mb-6 text-center">Set Budget & Duration</h2>
+      <div className="flex-1 p-4 sm:p-6 md:p-8 bg-[#fefbff]">
+        <div className="max-w-4xl mx-auto bg-white rounded shadow p-4 sm:p-6 md:p-8">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-center">
+            Set Budget & Duration
+          </h2>
 
           <section className="mb-8">
-            <h3 className="text-xl font-semibold mb-4">Website to Advertise</h3>
+            <h3 className="text-lg sm:text-xl font-semibold mb-4">Website to Advertise</h3>
             <input
               type="url"
               placeholder="https://your-website.com"
@@ -38,7 +37,7 @@ export default function BudgetPage() {
           </section>
 
           <section className="mb-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="border p-6 rounded shadow-sm">
+            <div className="border p-4 sm:p-6 rounded shadow-sm">
               <h3 className="font-semibold mb-3 flex items-center gap-2">
                 <span className="text-purple-600">$</span> Budget Configuration
               </h3>
@@ -59,7 +58,7 @@ export default function BudgetPage() {
               />
             </div>
 
-            <div className="border p-6 rounded shadow-sm">
+            <div className="border p-4 sm:p-6 rounded shadow-sm">
               <h3 className="font-semibold mb-3 flex items-center gap-2">
                 <span className="text-purple-600">📅</span> Campaign Duration
               </h3>
@@ -71,17 +70,15 @@ export default function BudgetPage() {
                 className="w-full border border-gray-300 rounded px-4 py-2"
               />
               <div className="mt-4 bg-purple-100 p-4 rounded text-purple-700">
-                <div className="text-2xl font-bold">{totalCost} TL</div>
-                <div className="text-sm">
-                  {amount} TL/day × {duration} days
-                </div>
+                <div className="text-xl sm:text-2xl font-bold">{totalCost} TL</div>
+                <div className="text-sm">{amount} TL/day × {duration} days</div>
               </div>
             </div>
           </section>
 
-          <section className="border p-6 rounded shadow-sm mb-8">
+          <section className="border p-4 sm:p-6 rounded shadow-sm mb-8">
             <h3 className="font-semibold mb-4">Estimated Performance</h3>
-            <div className="grid grid-cols-4 text-center font-semibold">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center font-semibold">
               <div>
                 <div>15K-25K</div>
                 <div className="text-sm font-normal">Reach</div>
@@ -101,7 +98,7 @@ export default function BudgetPage() {
             </div>
           </section>
 
-          <div className="flex justify-between items-center">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <button
               onClick={() => router.back()}
               className="text-blue-600 hover:underline"
@@ -111,7 +108,7 @@ export default function BudgetPage() {
 
             <button
               onClick={handleLaunchCampaign}
-              className="bg-green-600 text-white px-6 py-3 rounded font-semibold hover:bg-green-700 transition"
+              className="w-full sm:w-auto bg-green-600 text-white px-6 py-3 rounded font-semibold hover:bg-green-700 transition"
             >
               Launch Campaign
             </button>

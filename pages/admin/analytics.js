@@ -12,7 +12,7 @@ import {
   AreaChart,
   Area,
 } from "recharts";
-import Sidebar from "./Sidebar"; // Dosya yolunu kendi yapına göre ayarla
+import Sidebar from "./Sidebar";
 
 export default function AnalyticsPage() {
   const metrics = [
@@ -49,29 +49,34 @@ export default function AnalyticsPage() {
   }));
 
   return (
-    <main className="flex min-h-screen">
+    <main className="flex flex-col lg:flex-row min-h-screen">
       <Sidebar />
-      <div className="flex-1 p-6 bg-gray-50 overflow-auto">
-        <h1 className="text-2xl font-bold mb-4">Analytics</h1>
+      <div className="flex-1 p-4 sm:p-6 md:p-8 bg-gray-50 overflow-auto">
+        <h1 className="text-2xl sm:text-3xl font-bold mb-4">Analytics</h1>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-6">
+        {/* Metrics Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mb-6">
           {metrics.map((metric, index) => (
             <div
               key={index}
-              className="border rounded-lg p-4 shadow-md bg-white flex flex-col"
+              className="border rounded-lg p-4 shadow-sm bg-white flex flex-col"
             >
               <span className="text-sm text-gray-500">{metric.label}</span>
               <span className="text-xl font-semibold">{metric.value}</span>
               {metric.change && (
-                <span className="text-xs text-green-500 mt-1">{metric.change}</span>
+                <span className={`text-xs mt-1 ${metric.change.includes('-') ? 'text-red-500' : 'text-green-500'}`}>
+                  {metric.change}
+                </span>
               )}
             </div>
           ))}
         </div>
 
+        {/* Graphs Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-          <div className="bg-white p-4 rounded shadow">
-            <h2 className="font-semibold mb-2">Impressions vs Conversions vs Clicks</h2>
+          {/* Bar Chart */}
+          <div className="bg-white p-4 rounded shadow-sm">
+            <h2 className="font-semibold text-base sm:text-lg mb-2">Impressions vs Conversions vs Clicks</h2>
             <ResponsiveContainer width="100%" height={250}>
               <BarChart data={impressionsData}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -85,8 +90,9 @@ export default function AnalyticsPage() {
             </ResponsiveContainer>
           </div>
 
-          <div className="bg-white p-4 rounded shadow">
-            <h2 className="font-semibold mb-2">Revenue vs Spend</h2>
+          {/* Line Chart */}
+          <div className="bg-white p-4 rounded shadow-sm">
+            <h2 className="font-semibold text-base sm:text-lg mb-2">Revenue vs Spend</h2>
             <ResponsiveContainer width="100%" height={250}>
               <LineChart data={revenueSpendData}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -100,8 +106,9 @@ export default function AnalyticsPage() {
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded shadow">
-          <h2 className="font-semibold mb-2">Performance by Hour</h2>
+        {/* Area Chart */}
+        <div className="bg-white p-4 rounded shadow-sm">
+          <h2 className="font-semibold text-base sm:text-lg mb-2">Performance by Hour</h2>
           <ResponsiveContainer width="100%" height={250}>
             <AreaChart data={hourlyPerformanceData}>
               <CartesianGrid strokeDasharray="3 3" />
